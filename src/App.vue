@@ -90,58 +90,100 @@ import SnowEffect from './components/SnowEffect.vue'
 import ChristmasTree from './components/ChristmasTree.vue'
 import ImageModal from './components/ImageModal.vue'
 import tokioImage from './assets/perro_y_gato_-removebg-preview.png'
-import xerjoffImage from './assets/xerjoff-cruz-del-sur-i_700x700-removebg-preview.png'
+import xerjoffImage from './assets/anabel-removebg-preview.png'
 import 'animate.css'
 
 const isImageModalOpen = ref(false)
 const backgroundAudio = ref<HTMLAudioElement | null>(null)
 let audioPlayAttempted = false
+let isAudioPlaying = false
+
+const playBackgroundAudio = async () => {
+  if (backgroundAudio.value && !isAudioPlaying) {
+    try {
+      backgroundAudio.value.volume = 0.5
+      await backgroundAudio.value.play()
+      isAudioPlaying = true
+      audioPlayAttempted = true
+      // Silenciar errores después de que se reproduzca exitosamente
+      return true
+    } catch (error: any) {
+      // Solo mostrar error si no es el error de autoplay bloqueado
+      if (error.name !== 'NotAllowedError') {
+        console.log('Error al reproducir audio:', error)
+      }
+      return false
+    }
+  }
+  return false
+}
 
 const handleAudioLoaded = () => {
-  if (backgroundAudio.value && !audioPlayAttempted) {
+  if (backgroundAudio.value) {
     backgroundAudio.value.volume = 0.5
-    backgroundAudio.value.play().catch((error) => {
-      console.log('Audio no se pudo reproducir automáticamente:', error)
-    })
   }
 }
 
-const playBackgroundAudio = () => {
-  if (backgroundAudio.value && !audioPlayAttempted) {
-    audioPlayAttempted = true
-    backgroundAudio.value.volume = 0.5
-    backgroundAudio.value.play().catch((error) => {
-      console.log('Error al reproducir audio:', error)
-    })
+const handleUserInteraction = async () => {
+  if (!isAudioPlaying && backgroundAudio.value) {
+    const played = await playBackgroundAudio()
+    if (played) {
+      // Remover todos los listeners una vez que el audio se reproduzca
+      document.removeEventListener('click', handleUserInteraction)
+      document.removeEventListener('touchstart', handleUserInteraction)
+      document.removeEventListener('keydown', handleUserInteraction)
+      document.removeEventListener('mousedown', handleUserInteraction)
+    }
   }
 }
 
 onMounted(() => {
-  // Configurar el audio
+  // Configurar el audio cuando esté listo
   if (backgroundAudio.value) {
     backgroundAudio.value.volume = 0.5
-    // Intentar reproducir después de un pequeño delay
-    setTimeout(() => {
-      playBackgroundAudio()
-    }, 500)
+    
+    // Intentar reproducir cuando el audio esté cargado (silenciosamente)
+    backgroundAudio.value.addEventListener('canplaythrough', async () => {
+      if (!audioPlayAttempted) {
+        await playBackgroundAudio()
+      }
+    }, { once: true })
+    
+    // Intentar reproducir después de un delay (silenciosamente)
+    setTimeout(async () => {
+      if (!audioPlayAttempted) {
+        await playBackgroundAudio()
+      }
+    }, 1000)
   }
   
   // Intentar reproducir cuando el usuario interactúe con la página
-  const handleUserInteraction = () => {
-    playBackgroundAudio()
-    // Remover los listeners después de la primera interacción
-    document.removeEventListener('click', handleUserInteraction)
-    document.removeEventListener('touchstart', handleUserInteraction)
-    document.removeEventListener('keydown', handleUserInteraction)
+  // Usar eventos más específicos y no usar { once: true } para que funcione mejor
+  const events = ['click', 'touchstart', 'keydown', 'mousedown']
+  events.forEach(event => {
+    document.addEventListener(event, handleUserInteraction)
+  })
+  
+  // También intentar cuando se hace clic en el árbol
+  const treeClickHandler = () => {
+    handleUserInteraction()
   }
   
-  document.addEventListener('click', handleUserInteraction, { once: true })
-  document.addEventListener('touchstart', handleUserInteraction, { once: true })
-  document.addEventListener('keydown', handleUserInteraction, { once: true })
+  // Agregar listener al árbol después de que se monte
+  setTimeout(() => {
+    const treeElement = document.querySelector('.clickable-tree')
+    if (treeElement) {
+      treeElement.addEventListener('click', treeClickHandler)
+    }
+  }, 100)
 })
 
 const openImageModal = () => {
   isImageModalOpen.value = true
+  // Intentar reproducir audio cuando se abre el modal
+  if (!isAudioPlaying && backgroundAudio.value) {
+    playBackgroundAudio()
+  }
 }
 
 const closeImageModal = () => {
