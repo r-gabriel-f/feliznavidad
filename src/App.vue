@@ -1,5 +1,12 @@
 <template>
   <div class="christmas-page">
+    <!-- Audio de fondo -->
+    <audio ref="backgroundAudio" loop autoplay class="background-audio">
+      <source src="/musicafondo.mp4" type="audio/mp4" />
+      <source src="/musicafondo.mp4" type="audio/mpeg" />
+      Tu navegador no soporta el elemento de audio.
+    </audio>
+    
     <SnowEffect />
     
     <div class="content">
@@ -15,7 +22,7 @@
       
       <!-- Nombre personalizado -->
       <p class="name-greeting animate__animated animate__fadeInUp animate__delay-1s">
-        Para Nicole
+        Para Omar
       </p>
       
       <!-- Mensaje de Año Nuevo -->
@@ -25,20 +32,19 @@
       
       <!-- Contenedor principal con Snoopy y Árbol -->
       <div class="main-content animate__animated animate__zoomIn animate__delay-2s">
-        <!-- Árbol de Navidad -->
-        <div class="tree-wrapper">
-          <ChristmasTree />
-        </div>
-        
-        <!-- Contenedor de Snoopy -->
+        <!-- Contenedor de Tokio (antes Snoopy) -->
         <div class="snoopy-wrapper">
           <img 
-            :src="snoopyImage" 
-            alt="Snoopy Navideño" 
-            class="snoopy-real-image clickable"
-            @click="openVideo"
+            :src="tokioImage" 
+            alt="Tokio Navideño" 
+            class="snoopy-real-image"
           />
-          <p class="click-hint">👆 Haz clic para ver el video</p>
+        </div>
+        
+        <!-- Árbol de Navidad -->
+        <div class="tree-wrapper clickable-tree" @click="openImageModal">
+          <ChristmasTree />
+          <p class="tree-hint">👆 Haz clic en el árbol</p>
         </div>
       </div>
       
@@ -62,32 +68,45 @@
       <div v-for="i in 20" :key="i" class="star" :style="getStarStyle()"></div>
     </div>
     
-    <!-- Modal de Video -->
-    <VideoModal 
-      :is-open="isVideoOpen" 
-      :video-src="videoSrc"
-      @close="closeVideo"
+    <!-- Modal de Imagen -->
+    <ImageModal 
+      :is-open="isImageModalOpen" 
+      :image-src="xerjoffImage"
+      image-alt="Regalo de Navidad"
+      @close="closeImageModal"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import SnowEffect from './components/SnowEffect.vue'
 import ChristmasTree from './components/ChristmasTree.vue'
-import VideoModal from './components/VideoModal.vue'
-import snoopyImage from './assets/snoppy-removebg-preview.png'
+import ImageModal from './components/ImageModal.vue'
+import tokioImage from './assets/tokio-removebg-preview.png'
+import xerjoffImage from './assets/xerjoff-cruz-del-sur-i_700x700-removebg-preview.png'
 import 'animate.css'
 
-const isVideoOpen = ref(false)
-const videoSrc = '/snoopy-christmas-video.mp4'
+const isImageModalOpen = ref(false)
+const backgroundAudio = ref<HTMLAudioElement | null>(null)
 
-const openVideo = () => {
-  isVideoOpen.value = true
+onMounted(() => {
+  // Intentar reproducir el audio de fondo
+  if (backgroundAudio.value) {
+    backgroundAudio.value.volume = 0.5 // Volumen al 50%
+    backgroundAudio.value.play().catch((error) => {
+      // Algunos navegadores requieren interacción del usuario para reproducir audio
+      console.log('No se pudo reproducir el audio automáticamente:', error)
+    })
+  }
+})
+
+const openImageModal = () => {
+  isImageModalOpen.value = true
 }
 
-const closeVideo = () => {
-  isVideoOpen.value = false
+const closeImageModal = () => {
+  isImageModalOpen.value = false
 }
 
 const getStarStyle = () => {
@@ -208,9 +227,29 @@ const getStarStyle = () => {
 
 .tree-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   filter: drop-shadow(0 10px 30px rgba(34, 139, 34, 0.4));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.tree-wrapper.clickable-tree {
+  cursor: pointer;
+}
+
+.tree-wrapper.clickable-tree:hover {
+  transform: translateY(-10px) scale(1.05);
+  filter: drop-shadow(0 15px 40px rgba(34, 139, 34, 0.6));
+}
+
+.tree-hint {
+  margin-top: 15px;
+  color: #ffd700;
+  font-size: 0.9rem;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  animation: pulse 2s ease-in-out infinite;
+  font-family: 'Georgia', serif;
 }
 
 .snoopy-wrapper {
@@ -232,14 +271,6 @@ const getStarStyle = () => {
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.snoopy-real-image.clickable {
-  cursor: pointer;
-}
-
-.snoopy-real-image.clickable:hover {
-  transform: translateY(-10px) scale(1.05);
-  filter: drop-shadow(0 15px 40px rgba(255, 255, 255, 0.5));
-}
 
 .click-hint {
   margin-top: 15px;
@@ -377,6 +408,14 @@ const getStarStyle = () => {
   border-radius: 50%;
   animation: twinkle 2s ease-in-out infinite;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.background-audio {
+  position: fixed;
+  top: -9999px;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 @keyframes twinkle {
