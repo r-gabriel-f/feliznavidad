@@ -3,9 +3,6 @@
     <div v-if="isOpen" class="modal-overlay" @click.self="close">
       <div class="modal-container">
         <button class="close-btn" @click="close" aria-label="Cerrar">✕</button>
-        <div class="image-wrapper">
-          <img :src="imageSrc" :alt="imageAlt" class="modal-image" />
-        </div>
         <div class="message-container">
           <h2 class="modal-title">¡Feliz Navidad y Próspero Año Nuevo!</h2>
           <p class="modal-gift">🎁 Aquí tienes tu regalo 🎁</p>
