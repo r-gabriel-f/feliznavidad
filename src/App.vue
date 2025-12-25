@@ -13,18 +13,34 @@
         Que esta temporada esté llena de alegría y paz
       </p>
       
-      <!-- Contenedor de Snoopy -->
-      <div class="snoopy-wrapper animate__animated animate__zoomIn animate__delay-2s">
-        <img 
-          :src="snoopyImage" 
-          alt="Snoopy Navideño" 
-          class="snoopy-real-image"
-        />
+      <!-- Mensaje de Año Nuevo -->
+      <h2 class="new-year-title animate__animated animate__fadeInUp animate__delay-1s">
+        <span class="new-year-text">¡Próspero Año Nuevo!</span>
+      </h2>
+      
+      <!-- Contenedor principal con Snoopy y Árbol -->
+      <div class="main-content animate__animated animate__zoomIn animate__delay-2s">
+        <!-- Árbol de Navidad -->
+        <div class="tree-wrapper">
+          <ChristmasTree />
+        </div>
+        
+        <!-- Contenedor de Snoopy -->
+        <div class="snoopy-wrapper">
+          <img 
+            :src="snoopyImage" 
+            alt="Snoopy Navideño" 
+            class="snoopy-real-image clickable"
+            @click="openVideo"
+          />
+          <p class="click-hint">👆 Haz clic para ver el video</p>
+        </div>
       </div>
       
       <!-- Mensaje adicional -->
       <div class="message animate__animated animate__fadeIn animate__delay-3s">
         <p class="message-text">🎄 Que todos tus deseos se cumplan 🎄</p>
+        <p class="message-text-secondary">✨ Que el nuevo año traiga bendiciones y felicidad ✨</p>
       </div>
       
       <!-- Decoraciones navideñas -->
@@ -40,13 +56,35 @@
     <div class="stars">
       <div v-for="i in 20" :key="i" class="star" :style="getStarStyle()"></div>
     </div>
+    
+    <!-- Modal de Video -->
+    <VideoModal 
+      :is-open="isVideoOpen" 
+      :video-src="videoSrc"
+      @close="closeVideo"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import SnowEffect from './components/SnowEffect.vue'
+import ChristmasTree from './components/ChristmasTree.vue'
+import VideoModal from './components/VideoModal.vue'
 import snoopyImage from './assets/snoppy-removebg-preview.png'
+import snoopyVideo from './assets/Snoopy Celebra la Navidad 🎄✨ _ Video Navideño para Toda la Familia y Fans de Peanuts.mp4'
 import 'animate.css'
+
+const isVideoOpen = ref(false)
+const videoSrc = snoopyVideo
+
+const openVideo = () => {
+  isVideoOpen.value = true
+}
+
+const closeVideo = () => {
+  isVideoOpen.value = false
+}
 
 const getStarStyle = () => {
   return {
@@ -111,14 +149,48 @@ const getStarStyle = () => {
 .subtitle {
   font-size: 1.5rem;
   color: #ffffff;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   font-family: 'Georgia', serif;
 }
 
-.snoopy-wrapper {
-  margin: 40px 0;
+.new-year-title {
+  margin-bottom: 40px;
+}
+
+.new-year-text {
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #4ecdc4, #ffd700, #ff6b6b, #4ecdc4);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient 3s ease infinite;
+  text-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+  display: inline-block;
+  font-family: 'Georgia', serif;
+}
+
+.main-content {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.tree-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 10px 30px rgba(34, 139, 34, 0.4));
+}
+
+.snoopy-wrapper {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.2));
@@ -132,6 +204,34 @@ const getStarStyle = () => {
   object-fit: contain;
   animation: float 3s ease-in-out infinite;
   filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.3));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.snoopy-real-image.clickable {
+  cursor: pointer;
+}
+
+.snoopy-real-image.clickable:hover {
+  transform: translateY(-10px) scale(1.05);
+  filter: drop-shadow(0 15px 40px rgba(255, 255, 255, 0.5));
+}
+
+.click-hint {
+  margin-top: 15px;
+  color: #ffd700;
+  font-size: 0.9rem;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  animation: pulse 2s ease-in-out infinite;
+  font-family: 'Georgia', serif;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes float {
@@ -154,6 +254,27 @@ const getStarStyle = () => {
   font-weight: bold;
   font-family: 'Georgia', serif;
   animation: glow 2s ease-in-out infinite alternate;
+  margin: 10px 0;
+}
+
+.message-text-secondary {
+  font-size: 1.5rem;
+  color: #4ecdc4;
+  text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  animation: glow-secondary 2s ease-in-out infinite alternate;
+  margin: 10px 0;
+  animation-delay: 0.5s;
+}
+
+@keyframes glow-secondary {
+  from {
+    text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+  }
+  to {
+    text-shadow: 0 0 30px rgba(78, 205, 196, 1), 0 0 40px rgba(78, 205, 196, 0.8);
+  }
 }
 
 @keyframes glow {
@@ -245,18 +366,59 @@ const getStarStyle = () => {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .main-content {
+    gap: 40px;
+  }
+}
+
 @media (max-width: 768px) {
+  .christmas-page {
+    padding: 15px;
+  }
+  
   .title-text {
     font-size: 2.5rem;
   }
   
   .subtitle {
     font-size: 1.2rem;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .new-year-text {
+    font-size: 2rem;
   }
   
   .message-text {
     font-size: 1.3rem;
+  }
+  
+  .message-text-secondary {
+    font-size: 1.1rem;
+  }
+  
+  .main-content {
+    flex-direction: column;
+    gap: 30px;
+    margin: 30px 0;
+  }
+  
+  .tree-wrapper,
+  .snoopy-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .snoopy-real-image {
+    max-width: 280px;
+    max-height: 380px;
+  }
+  
+  .click-hint {
+    font-size: 0.8rem;
   }
   
   .decoration {
@@ -269,28 +431,61 @@ const getStarStyle = () => {
   .decoration-bottom-right {
     display: none;
   }
+  
+  .message {
+    margin-top: 30px;
+  }
 }
 
 @media (max-width: 480px) {
+  .christmas-page {
+    padding: 10px;
+  }
+  
   .title-text {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .subtitle {
     font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .new-year-text {
+    font-size: 1.4rem;
   }
   
   .message-text {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin: 8px 0;
   }
   
-  .snoopy-wrapper {
+  .message-text-secondary {
+    font-size: 0.85rem;
+    margin: 8px 0;
+  }
+  
+  .main-content {
+    gap: 20px;
     margin: 20px 0;
   }
   
   .snoopy-real-image {
-    max-width: 250px;
-    max-height: 350px;
+    max-width: 200px;
+    max-height: 280px;
+  }
+  
+  .click-hint {
+    font-size: 0.7rem;
+    margin-top: 10px;
+  }
+  
+  .message {
+    margin-top: 20px;
+  }
+  
+  .content {
+    padding: 0 10px;
   }
 }
 
