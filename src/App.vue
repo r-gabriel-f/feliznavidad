@@ -22,7 +22,7 @@
       
       <!-- Nombre personalizado -->
       <p class="name-greeting animate__animated animate__fadeInUp animate__delay-1s">
-        Para Omar
+        Para Roxana
       </p>
       
       <!-- Mensaje de Año Nuevo -->
@@ -83,7 +83,7 @@ import { ref, onMounted } from 'vue'
 import SnowEffect from './components/SnowEffect.vue'
 import ChristmasTree from './components/ChristmasTree.vue'
 import ImageModal from './components/ImageModal.vue'
-import tokioImage from './assets/tokio-removebg-preview.png'
+import tokioImage from './assets/perro_y_gato_-removebg-preview.png'
 import xerjoffImage from './assets/xerjoff-cruz-del-sur-i_700x700-removebg-preview.png'
 import 'animate.css'
 

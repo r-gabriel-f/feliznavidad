@@ -10,21 +10,23 @@
           <h2 class="modal-title">¡Feliz Navidad y Próspero Año Nuevo!</h2>
           <p class="modal-gift">🎁 Aquí tienes tu regalo 🎁</p>
           <p class="modal-message">
-            Querido Omar,<br /><br />
+            Querida Roxana,<br /><br />
             En esta temporada tan especial queremos recordarte que siempre
             estaremos aquí para ti, apoyándote en todo lo que necesites. Junto
             con toda la familia, te queremos incondicionalmente y celebramos
             quién eres, incluidos esos gustos tan únicos que te hacen especial,
-            sonso colera 😄.<br /><br />
+            sonsa colera 😄. Aunque a veces nos hagas renegar a todos, eso no
+            cambia el amor que sentimos por ti, porque eres parte de nuestra
+            familia y siempre lo serás.<br /><br />
             Que este nuevo año esté lleno de bendiciones, alegrías, risas y
             momentos inolvidables. Nunca olvides que cuentas con nosotros hoy y
             siempre.
           </p>
           <p class="modal-signature">
-            Con todo mi cariño tu regalo espero que algun dia lo pruebes
+            Con todo mi cariño tu regalo espero que algun dia lo tengas en tu casa
           </p>
           <img
-            src="../assets/xerjoff-cruz-del-sur-i_700x700-removebg-preview.png"
+            src="../assets/anabel-removebg-preview.png"
             alt="Regalo"
             class="modal-regalo"
           />
