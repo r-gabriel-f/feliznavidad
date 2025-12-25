@@ -13,6 +13,11 @@
         Que esta temporada esté llena de alegría y paz
       </p>
       
+      <!-- Nombre personalizado -->
+      <p class="name-greeting animate__animated animate__fadeInUp animate__delay-1s">
+        Para Nicole
+      </p>
+      
       <!-- Mensaje de Año Nuevo -->
       <h2 class="new-year-title animate__animated animate__fadeInUp animate__delay-1s">
         <span class="new-year-text">¡Próspero Año Nuevo!</span>
@@ -148,9 +153,30 @@ const getStarStyle = () => {
 .subtitle {
   font-size: 1.5rem;
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   font-family: 'Georgia', serif;
+}
+
+.name-greeting {
+  font-size: 2rem;
+  color: #ffd700;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  animation: glow-name 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow-name {
+  from {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    transform: scale(1);
+  }
+  to {
+    text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.8);
+    transform: scale(1.05);
+  }
 }
 
 .new-year-title {
@@ -382,6 +408,11 @@ const getStarStyle = () => {
   
   .subtitle {
     font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .name-greeting {
+    font-size: 1.5rem;
     margin-bottom: 15px;
   }
   
@@ -447,6 +478,11 @@ const getStarStyle = () => {
   
   .subtitle {
     font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .name-greeting {
+    font-size: 1.2rem;
     margin-bottom: 10px;
   }
   
