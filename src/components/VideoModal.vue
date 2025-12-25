@@ -56,26 +56,23 @@ watch(() => props.isOpen, (newValue) => {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 10000;
   backdrop-filter: blur(5px);
-  overflow-y: auto;
+  display: grid;
+  place-items: center;
   padding: 20px;
   box-sizing: border-box;
+  overflow: auto;
 }
 
 .modal-container {
   position: relative;
   width: 90%;
   max-width: 900px;
-  max-height: calc(100vh - 40px);
-  margin: auto;
+  max-height: 90vh;
   background: #1a1a1a;
   border-radius: 15px;
   padding: 20px;
@@ -83,7 +80,7 @@ watch(() => props.isOpen, (newValue) => {
   animation: scaleIn 0.3s ease-out;
   display: flex;
   flex-direction: column;
-  align-self: center;
+  margin: auto;
 }
 
 @keyframes scaleIn {
@@ -166,13 +163,15 @@ watch(() => props.isOpen, (newValue) => {
 @media (max-width: 768px) {
   .modal-overlay {
     padding: 15px;
+    display: grid;
+    place-items: center;
   }
   
   .modal-container {
     width: 95%;
     max-width: 95%;
     padding: 15px;
-    max-height: calc(100vh - 30px);
+    max-height: 90vh;
   }
   
   .close-btn {
@@ -187,6 +186,11 @@ watch(() => props.isOpen, (newValue) => {
 @media (max-width: 480px) {
   .modal-overlay {
     padding: 0;
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
   }
   
   .modal-container {
@@ -196,10 +200,16 @@ watch(() => props.isOpen, (newValue) => {
     border-radius: 0;
     padding: 10px;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .video-wrapper {
-    padding-top: 75%; /* Más alto en móviles */
+    padding-top: 56.25%;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: calc(100vh - 80px);
   }
 }
 </style>
