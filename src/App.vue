@@ -10,24 +10,24 @@
       
       <!-- Subtítulo -->
       <p class="subtitle animate__animated animate__fadeInUp animate__delay-1s">
-        Que esta temporada esté llena de alegría y paz
+        Que esta temporada esté llena de momentos especiales
       </p>
       
       <!-- Nombre personalizado -->
       <p class="name-greeting animate__animated animate__fadeInUp animate__delay-1s">
-        Para Nicole
+        Con cariño para Sharis (Brocha)
       </p>
       
       <!-- Mensaje de Año Nuevo -->
       <h2 class="new-year-title animate__animated animate__fadeInUp animate__delay-1s">
-        <span class="new-year-text">¡Próspero Año Nuevo!</span>
+        <span class="new-year-text">¡Que el 2026 traiga nuevos sueños y esperanzas!</span>
       </h2>
       
       <!-- Contenedor principal con Snoopy y Árbol -->
       <div class="main-content animate__animated animate__zoomIn animate__delay-2s">
-        <!-- Árbol de Navidad -->
-        <div class="tree-wrapper">
-          <ChristmasTree />
+        <!-- Ramo de Rosas -->
+        <div class="bouquet-wrapper">
+          <RoseBouquet />
         </div>
         
         <!-- Contenedor de Snoopy -->
@@ -44,16 +44,18 @@
       
       <!-- Mensaje adicional -->
       <div class="message animate__animated animate__fadeIn animate__delay-3s">
-        <p class="message-text">🎄 Que todos tus deseos se cumplan 🎄</p>
-        <p class="message-text-secondary">✨ Que el nuevo año traiga bendiciones y felicidad ✨</p>
+        <p class="message-text">🌹 Que cada día esté lleno de amor y sonrisas 🌹</p>
+        <p class="message-text-secondary">💫 Que encuentres la felicidad en cada momento especial 💫</p>
+        <p class="message-text-tertiary">🌟 Que tus sueños se hagan realidad 🌟</p>
       </div>
       
       <!-- Decoraciones navideñas -->
       <div class="decorations">
-        <div class="decoration decoration-left">🎁</div>
-        <div class="decoration decoration-right">🎅</div>
-        <div class="decoration decoration-bottom-left">🦌</div>
-        <div class="decoration decoration-bottom-right">⭐</div>
+        <div class="decoration decoration-left">💝</div>
+        <div class="decoration decoration-right">🦋</div>
+        <div class="decoration decoration-bottom-left">✨</div>
+        <div class="decoration decoration-bottom-right">🌸</div>
+        <div class="decoration decoration-top-center">🕊️</div>
       </div>
     </div>
     
@@ -74,7 +76,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import SnowEffect from './components/SnowEffect.vue'
-import ChristmasTree from './components/ChristmasTree.vue'
+import RoseBouquet from './components/RoseBouquet.vue'
 import VideoModal from './components/VideoModal.vue'
 import snoopyImage from './assets/snoppy-removebg-preview.png'
 import 'animate.css'
@@ -103,7 +105,7 @@ const getStarStyle = () => {
 <style scoped>
 .christmas-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+  background: linear-gradient(180deg, #e0f2f7 0%, #b3e5fc 50%, #87ceeb 100%);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -127,15 +129,17 @@ const getStarStyle = () => {
 .title-text {
   font-size: 4rem;
   font-weight: bold;
-  background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #ffd700);
+  background: linear-gradient(45deg, #ffffff, #4682b4, #1e3a5f, #ffffff);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient 3s ease infinite;
-  text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 4px 15px rgba(255, 255, 255, 1), 0 0 40px rgba(70, 130, 180, 0.8);
   display: inline-block;
   font-family: 'Georgia', serif;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.9));
+  opacity: 1;
 }
 
 @keyframes gradient {
@@ -152,29 +156,32 @@ const getStarStyle = () => {
 
 .subtitle {
   font-size: 1.5rem;
-  color: #ffffff;
+  color: #1e3a5f;
   margin-bottom: 10px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 1), 0 4px 12px rgba(255, 255, 255, 0.9);
   font-family: 'Georgia', serif;
+  font-weight: 600;
+  opacity: 1;
 }
 
 .name-greeting {
   font-size: 2rem;
-  color: #ffd700;
+  color: #d81b60;
   margin-bottom: 20px;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 1), 0 0 25px rgba(255, 105, 180, 1), 0 0 35px rgba(255, 20, 147, 0.9);
   font-weight: bold;
   font-family: 'Georgia', serif;
   animation: glow-name 2s ease-in-out infinite alternate;
+  opacity: 1;
 }
 
 @keyframes glow-name {
   from {
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 1), 0 0 25px rgba(255, 105, 180, 1), 0 0 35px rgba(255, 20, 147, 0.9);
     transform: scale(1);
   }
   to {
-    text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.8);
+    text-shadow: 0 2px 15px rgba(255, 255, 255, 1), 0 0 35px rgba(255, 105, 180, 1), 0 0 50px rgba(255, 20, 147, 1);
     transform: scale(1.05);
   }
 }
@@ -186,15 +193,17 @@ const getStarStyle = () => {
 .new-year-text {
   font-size: 3rem;
   font-weight: bold;
-  background: linear-gradient(45deg, #4ecdc4, #ffd700, #ff6b6b, #4ecdc4);
+  background: linear-gradient(45deg, #1e3a5f, #4682b4, #ffffff, #1e3a5f);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient 3s ease infinite;
-  text-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+  text-shadow: 0 4px 15px rgba(255, 255, 255, 1), 0 0 40px rgba(70, 130, 180, 0.8);
   display: inline-block;
   font-family: 'Georgia', serif;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.9));
+  opacity: 1;
 }
 
 .main-content {
@@ -206,11 +215,11 @@ const getStarStyle = () => {
   flex-wrap: wrap;
 }
 
-.tree-wrapper {
+.bouquet-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  filter: drop-shadow(0 10px 30px rgba(34, 139, 34, 0.4));
+  filter: drop-shadow(0 10px 30px rgba(255, 20, 147, 0.3));
 }
 
 .snoopy-wrapper {
@@ -243,11 +252,13 @@ const getStarStyle = () => {
 
 .click-hint {
   margin-top: 15px;
-  color: #ffd700;
+  color: #1e3a5f;
   font-size: 0.9rem;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  text-shadow: 0 2px 6px rgba(255, 255, 255, 1), 0 0 15px rgba(70, 130, 180, 0.8);
   animation: pulse 2s ease-in-out infinite;
   font-family: 'Georgia', serif;
+  font-weight: 600;
+  opacity: 1;
 }
 
 @keyframes pulse {
@@ -274,40 +285,63 @@ const getStarStyle = () => {
 
 .message-text {
   font-size: 1.8rem;
-  color: #ffd700;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  color: #1e3a5f;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 1), 0 4px 12px rgba(255, 255, 255, 0.95), 0 0 25px rgba(70, 130, 180, 0.8);
   font-weight: bold;
   font-family: 'Georgia', serif;
   animation: glow 2s ease-in-out infinite alternate;
   margin: 10px 0;
+  opacity: 1;
 }
 
 .message-text-secondary {
   font-size: 1.5rem;
-  color: #4ecdc4;
-  text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+  color: #4682b4;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 1), 0 4px 12px rgba(255, 255, 255, 0.95), 0 0 25px rgba(70, 130, 180, 0.9);
   font-weight: bold;
   font-family: 'Georgia', serif;
   animation: glow-secondary 2s ease-in-out infinite alternate;
   margin: 10px 0;
   animation-delay: 0.5s;
+  opacity: 1;
+}
+
+.message-text-tertiary {
+  font-size: 1.3rem;
+  color: #1e3a5f;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 1), 0 4px 12px rgba(255, 255, 255, 0.95), 0 0 20px rgba(70, 130, 180, 0.8);
+  font-weight: 600;
+  font-family: 'Georgia', serif;
+  animation: glow-tertiary 2.5s ease-in-out infinite alternate;
+  margin: 10px 0;
+  animation-delay: 1s;
+  opacity: 1;
+}
+
+@keyframes glow-tertiary {
+  from {
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 1), 0 4px 12px rgba(255, 255, 255, 0.95), 0 0 20px rgba(70, 130, 180, 0.8);
+  }
+  to {
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 1), 0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(70, 130, 180, 1);
+  }
 }
 
 @keyframes glow-secondary {
   from {
-    text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 1), 0 4px 12px rgba(255, 255, 255, 0.95), 0 0 25px rgba(70, 130, 180, 0.9);
   }
   to {
-    text-shadow: 0 0 30px rgba(78, 205, 196, 1), 0 0 40px rgba(78, 205, 196, 0.8);
+    text-shadow: 0 2px 12px rgba(255, 255, 255, 1), 0 4px 16px rgba(255, 255, 255, 1), 0 0 35px rgba(70, 130, 180, 1);
   }
 }
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 1), 0 4px 12px rgba(255, 255, 255, 0.95), 0 0 25px rgba(70, 130, 180, 0.8);
   }
   to {
-    text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.8);
+    text-shadow: 0 2px 12px rgba(255, 255, 255, 1), 0 4px 16px rgba(255, 255, 255, 1), 0 0 35px rgba(70, 130, 180, 1);
   }
 }
 
@@ -351,6 +385,13 @@ const getStarStyle = () => {
   animation-delay: 0.5s;
 }
 
+.decoration-top-center {
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 2s;
+}
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
@@ -376,7 +417,7 @@ const getStarStyle = () => {
   background: #ffffff;
   border-radius: 50%;
   animation: twinkle 2s ease-in-out infinite;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(135, 206, 235, 0.8);
 }
 
 @keyframes twinkle {
@@ -428,13 +469,17 @@ const getStarStyle = () => {
     font-size: 1.1rem;
   }
   
+  .message-text-tertiary {
+    font-size: 1rem;
+  }
+  
   .main-content {
     flex-direction: column;
     gap: 30px;
     margin: 30px 0;
   }
   
-  .tree-wrapper,
+  .bouquet-wrapper,
   .snoopy-wrapper {
     width: 100%;
     display: flex;
@@ -497,6 +542,11 @@ const getStarStyle = () => {
   
   .message-text-secondary {
     font-size: 0.85rem;
+    margin: 8px 0;
+  }
+  
+  .message-text-tertiary {
+    font-size: 0.75rem;
     margin: 8px 0;
   }
   

@@ -70,7 +70,7 @@ onMounted(() => {
   color: #ffffff;
   user-select: none;
   animation: fall linear infinite;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 5px rgba(135, 206, 235, 0.8);
 }
 
 @keyframes fall {
