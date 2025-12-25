@@ -1,7 +1,13 @@
 <template>
   <div class="christmas-page">
     <!-- Audio de fondo -->
-    <audio ref="backgroundAudio" loop autoplay class="background-audio">
+    <audio 
+      ref="backgroundAudio" 
+      loop 
+      preload="auto"
+      class="background-audio"
+      @loadedmetadata="handleAudioLoaded"
+    >
       <source src="/musicafondo.mp4" type="audio/mp4" />
       <source src="/musicafondo.mp4" type="audio/mpeg" />
       Tu navegador no soporta el elemento de audio.
@@ -89,16 +95,49 @@ import 'animate.css'
 
 const isImageModalOpen = ref(false)
 const backgroundAudio = ref<HTMLAudioElement | null>(null)
+let audioPlayAttempted = false
 
-onMounted(() => {
-  // Intentar reproducir el audio de fondo
-  if (backgroundAudio.value) {
-    backgroundAudio.value.volume = 0.5 // Volumen al 50%
+const handleAudioLoaded = () => {
+  if (backgroundAudio.value && !audioPlayAttempted) {
+    backgroundAudio.value.volume = 0.5
     backgroundAudio.value.play().catch((error) => {
-      // Algunos navegadores requieren interacción del usuario para reproducir audio
-      console.log('No se pudo reproducir el audio automáticamente:', error)
+      console.log('Audio no se pudo reproducir automáticamente:', error)
     })
   }
+}
+
+const playBackgroundAudio = () => {
+  if (backgroundAudio.value && !audioPlayAttempted) {
+    audioPlayAttempted = true
+    backgroundAudio.value.volume = 0.5
+    backgroundAudio.value.play().catch((error) => {
+      console.log('Error al reproducir audio:', error)
+    })
+  }
+}
+
+onMounted(() => {
+  // Configurar el audio
+  if (backgroundAudio.value) {
+    backgroundAudio.value.volume = 0.5
+    // Intentar reproducir después de un pequeño delay
+    setTimeout(() => {
+      playBackgroundAudio()
+    }, 500)
+  }
+  
+  // Intentar reproducir cuando el usuario interactúe con la página
+  const handleUserInteraction = () => {
+    playBackgroundAudio()
+    // Remover los listeners después de la primera interacción
+    document.removeEventListener('click', handleUserInteraction)
+    document.removeEventListener('touchstart', handleUserInteraction)
+    document.removeEventListener('keydown', handleUserInteraction)
+  }
+  
+  document.addEventListener('click', handleUserInteraction, { once: true })
+  document.addEventListener('touchstart', handleUserInteraction, { once: true })
+  document.addEventListener('keydown', handleUserInteraction, { once: true })
 })
 
 const openImageModal = () => {
