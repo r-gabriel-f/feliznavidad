@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   isOpen: boolean;
   imageSrc: string;
   imageAlt?: string;
