@@ -78,7 +78,7 @@ import { ref } from 'vue'
 import SnowEffect from './components/SnowEffect.vue'
 import RoseBouquet from './components/RoseBouquet.vue'
 import VideoModal from './components/VideoModal.vue'
-import snoopyImage from './assets/snoppy-removebg-preview.png'
+import snoopyImage from './assets/perroyganto-removebg-preview.png'
 import 'animate.css'
 
 const isVideoOpen = ref(false)
