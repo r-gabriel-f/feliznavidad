@@ -72,11 +72,10 @@ import SnowEffect from './components/SnowEffect.vue'
 import ChristmasTree from './components/ChristmasTree.vue'
 import VideoModal from './components/VideoModal.vue'
 import snoopyImage from './assets/snoppy-removebg-preview.png'
-import snoopyVideo from './assets/Snoopy Celebra la Navidad 🎄✨ _ Video Navideño para Toda la Familia y Fans de Peanuts.mp4'
 import 'animate.css'
 
 const isVideoOpen = ref(false)
-const videoSrc = snoopyVideo
+const videoSrc = '/snoopy-christmas-video.mp4'
 
 const openVideo = () => {
   isVideoOpen.value = true
