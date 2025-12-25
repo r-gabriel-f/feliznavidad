@@ -8,29 +8,9 @@
         <span class="title-text">¡Feliz Navidad!</span>
       </h1>
       
-      <!-- Subtítulo -->
-      <p class="subtitle animate__animated animate__fadeInUp animate__delay-1s">
-        Que esta temporada esté llena de momentos especiales
-      </p>
-      
-      <!-- Nombre personalizado -->
-      <p class="name-greeting animate__animated animate__fadeInUp animate__delay-1s">
-        Con cariño para Sharis (Brocha)
-      </p>
-      
-      <!-- Mensaje de Año Nuevo -->
-      <h2 class="new-year-title animate__animated animate__fadeInUp animate__delay-1s">
-        <span class="new-year-text">¡Que el 2026 traiga nuevos sueños y esperanzas!</span>
-      </h2>
-      
-      <!-- Contenedor principal con Snoopy y Árbol -->
+      <!-- Contenedor principal con Snoopy y Rosas - Reorganizado -->
       <div class="main-content animate__animated animate__zoomIn animate__delay-2s">
-        <!-- Ramo de Rosas -->
-        <div class="bouquet-wrapper">
-          <RoseBouquet />
-        </div>
-        
-        <!-- Contenedor de Snoopy -->
+        <!-- Contenedor de Snoopy - Izquierda -->
         <div class="snoopy-wrapper">
           <img 
             :src="snoopyImage" 
@@ -40,7 +20,27 @@
           />
           <p class="click-hint">👆 Haz clic para ver el video</p>
         </div>
+        
+        <!-- Ramo de Rosas - Derecha -->
+        <div class="bouquet-wrapper">
+          <RoseBouquet />
+        </div>
       </div>
+      
+      <!-- Nombre personalizado - Centrado después de imágenes -->
+      <p class="name-greeting animate__animated animate__fadeInUp animate__delay-1s">
+        Con cariño para Sharis (Brocha)
+      </p>
+      
+      <!-- Mensaje de Año Nuevo -->
+      <h2 class="new-year-title animate__animated animate__fadeInUp animate__delay-1s">
+        <span class="new-year-text">¡Que el 2026 traiga nuevos sueños y esperanzas!</span>
+      </h2>
+      
+      <!-- Subtítulo - Después del año nuevo -->
+      <p class="subtitle animate__animated animate__fadeInUp animate__delay-1s">
+        Que esta temporada esté llena de momentos especiales
+      </p>
       
       <!-- Mensaje adicional -->
       <div class="message animate__animated animate__fadeIn animate__delay-3s">
@@ -82,7 +82,7 @@ import snoopyImage from './assets/perroyganto-removebg-preview.png'
 import 'animate.css'
 
 const isVideoOpen = ref(false)
-const videoSrc = '/snoopy-christmas-video.mp4'
+const videoSrc = '/sharisnavidad.mp4'
 
 const openVideo = () => {
   isVideoOpen.value = true
@@ -123,7 +123,7 @@ const getStarStyle = () => {
 }
 
 .title {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .title-text {
@@ -167,7 +167,7 @@ const getStarStyle = () => {
 .name-greeting {
   font-size: 2rem;
   color: #d81b60;
-  margin-bottom: 20px;
+  margin: 30px 0 20px 0;
   text-shadow: 0 2px 10px rgba(255, 255, 255, 1), 0 0 25px rgba(255, 105, 180, 1), 0 0 35px rgba(255, 20, 147, 0.9);
   font-weight: bold;
   font-family: 'Georgia', serif;
@@ -187,7 +187,7 @@ const getStarStyle = () => {
 }
 
 .new-year-title {
-  margin-bottom: 40px;
+  margin: 20px 0 15px 0;
 }
 
 .new-year-text {
@@ -208,18 +208,13 @@ const getStarStyle = () => {
 
 .main-content {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: 60px;
-  margin: 40px 0;
+  gap: 50px;
+  margin: 30px 0;
   flex-wrap: wrap;
-}
-
-.bouquet-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  filter: drop-shadow(0 10px 30px rgba(255, 20, 147, 0.3));
+  width: 100%;
+  max-width: 1100px;
 }
 
 .snoopy-wrapper {
@@ -228,6 +223,17 @@ const getStarStyle = () => {
   justify-content: center;
   align-items: center;
   filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.2));
+  flex: 1;
+  min-width: 300px;
+}
+
+.bouquet-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 10px 30px rgba(255, 20, 147, 0.3));
+  flex: 1;
+  min-width: 250px;
 }
 
 .snoopy-real-image {
@@ -475,8 +481,17 @@ const getStarStyle = () => {
   
   .main-content {
     flex-direction: column;
-    gap: 30px;
-    margin: 30px 0;
+    gap: 25px;
+    margin: 25px 0;
+    justify-content: center;
+  }
+  
+  .snoopy-wrapper {
+    order: 1;
+  }
+  
+  .bouquet-wrapper {
+    order: 2;
   }
   
   .bouquet-wrapper,
